@@ -28,7 +28,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 ```
 
 > Add current user in docker group by the command: `usermod -aG docker $USER`. The user needs to Log out and log back into the Ubuntu server so that group membership is re-evaluated. After that the user will be able to run Docker commands without using root or sudo.
-2. Install kubeadm, kubelet, kubectl
+2. Install kubeadm, kubelet, kubectl in each node:
 - Disable swap space in `each node`:
 ```yml
 # Disable swap
@@ -100,3 +100,23 @@ kubectl get nodes -o wide
 [Go to Calico quickstart website here!](https://docs.tigera.io/calico/latest/getting-started/kubernetes/quickstart)
 
 ## Multi nodes:
+- Can use the command saved in step `init control plane/init master node` above.
+
+```yml
+sudo kubeadm join --token <token> <control-plane-host>:<control-plane-port> --discovery-token-ca-cert-hash sha256:<hash>
+```
+- In the other hand:
+  - If you forget the command `kubeadm join`, follow the step below to get token and hash code:
+```yml
+# Get token
+kubeadm token list
+----------------------------------
+# Get hash code
+openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
+openssl dgst -sha256 -hex | sed 's/^.* //'
+```
+
+  - If the token expires (after 24 hours), let create new token:
+```yml
+kubeadm token create
+```
