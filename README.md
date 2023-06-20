@@ -1,5 +1,6 @@
 # k8s-cluster-deployment
 
+![alt](overview.png)
 ## Single node:
 1. Install container runtime (Docker)
 
