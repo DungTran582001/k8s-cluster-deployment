@@ -105,8 +105,8 @@ kubectl get nodes -o wide
 ```yml
 sudo kubeadm join --token <token> <control-plane-host>:<control-plane-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
-- In the other hand:
-  - If you forget the command `kubeadm join`, follow the step below to get token and hash code:
+
+- If you forget the command `kubeadm join`, follow the step below to get token and hash code:
 ```yml
 # Get token
 kubeadm token list
@@ -116,7 +116,7 @@ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outfor
 openssl dgst -sha256 -hex | sed 's/^.* //'
 ```
 
-  - If the token expires (after 24 hours), let create new token:
+- If the token expires (after 24 hours), let create new token:
 ```yml
 kubeadm token create
 ```
