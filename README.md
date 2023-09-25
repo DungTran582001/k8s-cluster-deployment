@@ -191,6 +191,7 @@ kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 kubectl taint nodes --all node-role.kubernetes.io/master-
 # Expected output: node/<your-hostname> untainted
 ```
+![alt](watch-process.png)
 - Run command to check the result:
 ```yml
 kubectl cluster-info
@@ -220,3 +221,6 @@ openssl dgst -sha256 -hex | sed 's/^.* //'
 ```yml
 kubeadm token create
 ```
+## Result
+
+![alt](result.png)
