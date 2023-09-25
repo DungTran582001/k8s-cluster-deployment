@@ -7,12 +7,12 @@
 - Set up the repository:
 ```yml
 sudo apt-get update
-----------------------------------
+-------------------------------------------------------------------------------------------------------
 sudo apt-get install ca-certificates curl gnupg
 ```
 ```yml
 sudo install -m 0755 -d /etc/apt/keyrings
-----------------------------------
+-------------------------------------------------------------------------------------------------------
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
 ```
@@ -25,6 +25,8 @@ echo \
 ```
 
 ```yml
+sudo apt-get update
+-------------------------------------------------------------------------------------------------------
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
@@ -42,12 +44,12 @@ sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 - Install tools:
 ```yml
 sudo apt-get update
-----------------------------------
+-------------------------------------------------------------------------------------------------------
 sudo apt-get install -y apt-transport-https ca-certificates curl
 ```
 ```yml
 sudo mkdir -m 0755 -p /etc/apt/keyrings
-----------------------------------
+-------------------------------------------------------------------------------------------------------
 sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
 
 ```
@@ -58,9 +60,9 @@ echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://a
 
 ```yml
 sudo apt-get update
-----------------------------------
+-------------------------------------------------------------------------------------------------------
 sudo apt-get install -y kubelet kubeadm kubectl
-----------------------------------
+-------------------------------------------------------------------------------------------------------
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 3. Init control plane:
@@ -71,22 +73,22 @@ kubeadm init --apiserver-advertise-address=<IP_node_master> --pod-network-cidr=1
 > Should save the command `kubectl join <IP_node_master>:6443 --token...` appeared in output after running the above command. It's responsible for helping other nodes to join the cluster.
 ```yml
 mkdir -p $HOME/.kube
-----------------------------------
+-------------------------------------------------------------------------------------------------------
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-----------------------------------
+-------------------------------------------------------------------------------------------------------
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 - Install plugin network to help nodes in cluster can communicate together. (Choose plugin `Calico`)
 ```yml
 # Install the Tigera Calico operator and custom resource definitions.
 kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.0/manifests/tigera-operator.yaml
-----------------------------------
+-------------------------------------------------------------------------------------------------------
 # Install Calico by creating the necessary custom resource. For more information on configuration options available in this manifest.
 kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.0/manifests/custom-resources.yaml
-----------------------------------
+-------------------------------------------------------------------------------------------------------
 # Confirm that all of the pods are running with the following command.
 watch kubectl get pods -n calico-system
-----------------------------------
+-------------------------------------------------------------------------------------------------------
 # Remove the taints on the control plane so that you can schedule pods on it.
 kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 kubectl taint nodes --all node-role.kubernetes.io/master-
@@ -95,7 +97,7 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 - Run command to check the result:
 ```yml
 kubectl cluster-info
-----------------------------------
+-------------------------------------------------------------------------------------------------------
 kubectl get nodes -o wide
 ```
 [Go to Calico quickstart website here!](https://docs.tigera.io/calico/latest/getting-started/kubernetes/quickstart)
@@ -111,7 +113,7 @@ sudo kubeadm join --token <token> <control-plane-host>:<control-plane-port> --di
 ```yml
 # Get token
 kubeadm token list
-----------------------------------
+-------------------------------------------------------------------------------------------------------
 # Get hash code
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
 openssl dgst -sha256 -hex | sed 's/^.* //'
