@@ -50,7 +50,7 @@ sudo apt-get install -y apt-transport-https ca-certificates curl
 ```yml
 sudo mkdir -m 0755 -p /etc/apt/keyrings
 -------------------------------------------------------------------------------------------------------
-sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://dl.k8s.io/apt/doc/apt-key.gpg
 
 ```
 
