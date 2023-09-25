@@ -27,7 +27,7 @@ echo \
 ```yml
 sudo apt-get update
 -------------------------------------------------------------------------------------------------------
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 ```
 
 > Add current user in docker group by the command: `sudo usermod -aG docker $USER`. The user needs to Log out and log back into the Ubuntu server by command: `sudo reboot` so that group membership is re-evaluated. After that the user will be able to run Docker commands without using root or sudo.
